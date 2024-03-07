@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-
+# ruta raiz
 @app.route('/')
 def home():
     mi_nombre = 'Andrew Elias Cooper Castro'
