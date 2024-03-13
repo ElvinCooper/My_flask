@@ -1,21 +1,25 @@
 from flask import Flask, render_template
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = " mi super clave secreta jajaja"
+
+# creando la clase formulario
+class formulario(FlaskForm):
+    name = StringField(' ¿ Cual es tu nombre ?' , validators=[DataRequired()])
+    sumit = SubmitField("Submit")
 
 # ruta raiz
 @app.route('/')
 def home():
-    mi_nombre = 'Andrew Elias Cooper Castro'
-    favorite_colors = ['rojo', 'verde', 'amarillo','purpura',23,224]
-    return render_template ('index.html', 
-                            hijo=mi_nombre,
-                              colores = favorite_colors)
+    return render_template ('base.html')
 
 # localhost:5000/user  
-@app.route('/<name>')
-
+@app.route('/index.html')
 def user():
-    return render_template  ('login.html' )
+    return render_template  ('index.html' )
     #return '<h1>Hola {}  </h1>'.format(name)
 
 
@@ -29,6 +33,18 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
+@app.route('/nombre', methods=['GET', 'POST'])
+def nombre ():
+    nombre = None
+    my_form = formulario()
+    # validacion del formulario
+    if my_form.validate_on_submit():
+        nombre = my_form.name.data
+        my_form.name.data = ' '
+
+    return render_template ('nombre.html',
+                             v_nombre = nombre,
+                             vform = my_form)
 
 
 
