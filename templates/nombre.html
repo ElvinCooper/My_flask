@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1> ¿Cual es tu nombre ? </h1>
 
+    {% if v_nombre %}
+        <h1> Hola {{ v_nombre }} </h1>
+    {% else %}
+        <h1> ¿Cual es tu nombre ? </h1>
+        <br/>
+        <form method="POST">
+            {{vform.hidden_tag( )}}
+
+            {{vform.name.label }}
+            {{ vform.name() }}
+            <br/>
+            {{vform.submit() }}
+            
+        </form>
+    {% endif %}
 
 {% endblock %}

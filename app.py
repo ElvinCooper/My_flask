@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = " mi super clave secreta jajaja"
 # creando la clase formulario
 class formulario(FlaskForm):
     name = StringField(' ¿ Cual es tu nombre ?' , validators=[DataRequired()])
-    sumit = SubmitField("Submit")
+    submit = SubmitField("Submit")
 
 # ruta raiz
 @app.route('/')
@@ -45,8 +45,6 @@ def nombre ():
     return render_template ('nombre.html',
                              v_nombre = nombre,
                              vform = my_form)
-
-
 
 if app == '__main__':
     app.run(debug=True)
